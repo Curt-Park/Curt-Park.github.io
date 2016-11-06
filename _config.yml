@@ -7,33 +7,33 @@ name:               "Hello Blog!"
 
 author:
   name:             Jinwoo Park (Curt)
-  facebook:         your-id
-  youtubeUser:      your-id
-  youtubeChannel:   your-id
-  twitter:          your-id
-  github:           your-id
-  stackoverflow:    your-id
-  quora:            your-id
-  linkedin:         your-id
-  pinterest:        your-id
-  googlePlus:       your-id
-  instagram:        your-id
-  reddit:           your-id
-  medium:           your-id
-  tumblr:           your-id
+  facebook:         100002351296289 
+  github:           Curt-Park
+  linkedin:         curt-park-9ab171a1
   email:            www.jwpark.co.kr@gmail.com
+##   youtubeUser:      your-id
+##   youtubeChannel:   your-id
+##   twitter:          your-id
+##   stackoverflow:    your-id
+##   quora:            your-id
+##   pinterest:        your-id
+##   googlePlus:       your-id
+##   instagram:        your-id
+##   reddit:           your-id
+##   medium:           your-id
+##   tumblr:           your-id
 
 copyright:
   year:             2017
   name:             Kiko
 
 # Google-analytics
-google-analytics:
-  id:               ""
+google-analytics: 
+  id:               "UA-86910451-1"
 
 # Disqus
 disqus:
-  id:               "curtpark"
+  id:               "hello-blog"
 
 # URL
 url:                "https://curt-park.github.io" # the base hostname & protocol for your site
@@ -62,7 +62,7 @@ nav:
   - name:           "Tags"
     url:            "/tags"
   - name:           "Github"
-    url:            "https://github.com/AWEEKJ/Kiko-plus"
+    url:            "https://github.com/Curt-Park"
 
 # Sass
 sass:

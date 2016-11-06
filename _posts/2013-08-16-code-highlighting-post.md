@@ -3,7 +3,7 @@ layout: post
 title: "Syntax Highlighting Post"
 description: "Demo post displaying the various ways of highlighting code in Markdown."
 date: 2013-08-16
-tags: [sample post, code, highlighting]
+tags: [jekyll]
 comments: true
 share: true
 ---
