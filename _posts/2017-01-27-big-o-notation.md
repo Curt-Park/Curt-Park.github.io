@@ -17,7 +17,7 @@ Big-O notation is used to estimate time or space complexities of algorithms acco
 
 ![]({{ site.url }}/images/big_o_pic_1.png "f(n) = Cg(n)"){: .aligncenter}
 Let $$f$$ and $$g$$ be two functions defined on some subset of the real numbers.
-If there is a positive constant $$C$$ such that for all sufficiently large values of $$n$$, the absolute value of $$f(n)$$ is at most $$C$$ multiplied by the absolute value of $$g(n)$$. That is, $$f(n) = O(g(n))$$ and only if there exists a positive real number $$C$$ and a real number $$n_0$$ such that  
+If there is a positive constant $$C$$ such that for all sufficiently large values of $$n$$, the absolute value of $$f(n)$$ is at most $$C$$ multiplied by the absolute value of $$g(n)$$. That is, $$f(n) = O(g(n))$$ if and only if there exists a positive real number $$C$$ and a real number $$n_0$$ such that  
 $$|f(n)| \le C|g(n)|$$
  for all 
 $$n \ge n_0.$$
