@@ -123,7 +123,8 @@ $$\le C|g_1g_2|(n)$$
 
 # References
 
+* Big O notation, Wikipedia, [https://en.wikipedia.org/wiki/Big_O_notation](https://en.wikipedia.org/wiki/Big_O_notation)
 * Discrete Mathematics and its Applications 5th edition, Kenneth H. Rosen, McGraw-Hill Education
 * Data Structures for Game Programmers, Ron Penton, PremierPress
-* Big-O Notation, [http://openparadigm.tistory.com/20](http://openparadigm.tistory.com/20)
+* Big-O Notation, openparadigm's blog, [http://openparadigm.tistory.com/20](http://openparadigm.tistory.com/20)
 
