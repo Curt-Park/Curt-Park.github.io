@@ -22,11 +22,11 @@ $$|f(n)| \le C|g(n)|$$
  for all 
 $$n \ge n_0.$$
 
-Let's see examples for better understanding. There are two algorithms written in C for sum from 1 to input value n. (The comment of each line means the operation number.)
+Let's see examples for better understanding. There are two algorithms written in C for sum from 1 to n. (The comment of each line means the operation number.)
 
 ```c
 // Algorithm1
-int calcSum(n) {
+int calcSum(int n) {
 	int i = 1; // 1
 	int sum = 0; // 1
 	for(; i<=n; ++i)
@@ -39,7 +39,7 @@ int calcSum(n) {
 ```
 ```c
 // Algorithm2
-int calcSum(n) {
+int calcSum(int n) {
 	int count = n; // 1
 	int sum = 1+n; // 1
 	sum = sum*count; // 1
