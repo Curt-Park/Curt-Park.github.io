@@ -6,6 +6,7 @@ date: 2017-01-27
 tags: [data structure, algorithm]
 comments: true
 share: true
+use_math: true
 ---
 
 # Introduction
