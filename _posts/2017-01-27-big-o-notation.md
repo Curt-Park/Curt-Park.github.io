@@ -10,7 +10,7 @@ share: true
 
 # Introduction
 
-Big-O notation is used to estimate time or space complexities of algorithms according to its input size. Big-O notation usually only provides an upper bound on the growth rate of the function, so people can expect the guaranteed performance in the worst case. Due to the reason, Big-O is more widely used by developers compared to Big-Theta and Big-Omega.
+Big-O notation is used to estimate time or space complexities of algorithms according to their input size. Big-O notation usually only provides an upper bound on the growth rate of the function, so people can expect the guaranteed performance in the worst case. Due to the reason, Big-O is more widely used by developers compared to Big-Theta and Big-Omega.
 
 # Definition
 
@@ -107,7 +107,7 @@ $$= (C_1+C_2)|g(n)|$$
 $$= C|g(n)|$$  
 
 > **Corollary:**  
-**$$(f_1+f_2)(n)=O(g(n))$$**, where $$f_1(n)=O(g(n))$$ and $$f_2(n)=O(g(n))$$.
+$$(f_1+f_2)(n)=O(g(n))$$, where $$f_1(n)=O(g(n))$$ and $$f_2(n)=O(g(n))$$.
  
 #### Theorem 2
 
