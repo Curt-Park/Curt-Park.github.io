@@ -3,7 +3,7 @@ layout: post
 title: "[Summary] Faster R-CNN"
 description: "Paper review of Faster R-CNN published in Jan., 2016"
 date: 2017-03-17
-tags: [deep learning, object detection, paper review, in Korean]
+tags: [deep learning, object detection]
 comments: true
 share: true
 use_math: false
