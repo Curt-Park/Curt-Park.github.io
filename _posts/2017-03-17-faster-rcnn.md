@@ -84,7 +84,7 @@ R-CNN / Fast R-CNN에서는 모든 Region of Interest가 그 크기와 비율에
 
 * end-to-end로 back-propagation 사용.
 * Stochastic gradient descent
-* 한 이미지당 랜덤하게 256개의 sample anchor들을 사용. 이떄, Sample은 positive anchor:negative anchor = 1:1 비율로 섞는다. 혹시 positive anchor의 개수가 128개보다 낮을 경우, 빈 자리는 negative sample로 채운다. 이미지 내에 negative sample이 positive sample보다 훨씬 많으므로 이런 작업이 필요하다.
+* 한 이미지당 랜덤하게 256개의 sample anchor들을 사용. 이때, Sample은 positive anchor:negative anchor = 1:1 비율로 섞는다. 혹시 positive anchor의 개수가 128개보다 낮을 경우, 빈 자리는 negative sample로 채운다. 이미지 내에 negative sample이 positive sample보다 훨씬 많으므로 이런 작업이 필요하다.
 * 모든 weight는 랜덤하게 초기화. (from a zero-mean Gaussian distribution with standard deviation 0.01)
 * ImageNet classification으로 fine-tuning (ZF는 모든 layer들, VGG는 conv3_1포함 그 위의 layer들만. Fast R-CNN 논문 4.5절 참고.)
 * Learning Rate: 0.001 (처음 60k의 mini-batches), 0.0001 (다음 20k의 mini-batches)
@@ -137,7 +137,7 @@ Table9: lambda값을 조정하며 테스트. lambda가 대략 Nreg/Ncls 정도�
 # Conclusion
 실험결과에서 보이는 것처럼 약간의 정확도가 향상되었고, 실행시간이 현격히 줄어들었다. 
 헌데, 논문에서 이를 'object detection system to run at near real-time frame rates' 라고 표현하는 것으로 보아, 
-아직 실시간 영상처리 등에서 사용하기에는 아직 다소 부족한 부분이 있는 것으로 보인다.
+아직 실시간 영상처리 등에서 사용하기에는 다소 부족한 부분이 있는 것으로 보인다.
 
 # References
 
