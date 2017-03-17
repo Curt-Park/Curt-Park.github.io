@@ -56,6 +56,7 @@ Anchor box는 sliding window의 각 위치에서 Bounding Box의 후보로 사�
 여기서 filter의 개수는, anchor box의 개수(9개) * score의 개수(2개: object? / non-object?)로 결정된다.
 - reg layer: 1X1 filter with 1 stride and 0 padding을 9*4(=36)개 적용하여 14X14X9X4의 아웃풋을 얻는다. 
 여기서 filter의 개수는, anchor box의 개수(9개) * 각 box의 좌표 표시를 위한 데이터의 개수(4개: x, y, w, h)로 결정된다. 
+
 주목할 점은, output layer에서 사용되는 파라미터의 개수다. 
 VGG-16을 기준으로 했을때 약 2.8 X 10^4개의 파라미터를 갖게 되는데(512 X (4+2) X 9), 다른 모델들의 output layer 파라미터 개수 -가령, GoogleNet in MultiBox의 경우 약 6.1 X 10^6- 보다 훨씬 적은 것을 알 수 있다. 
 이를 통해 small dataset에 대한 overfitting의 위험도가 상대적으로 낮으리라 예상할 수 있다.
@@ -65,7 +66,8 @@ Loss Function은 아래 그림과 같다.
 ![]({{ site.url }}/images/faster_rcnn/LossFunction.png "LossFunction"){: .aligncenter}
 
 * **pi**: Predicted probability of anchor
-* __pi*__: Ground-truth label (1: anchor is positive, 0: anchor is negative)* **lambda**: Balancing parameter. Ncls와 Nreg 차이로 발생하는 불균형을 방지하기 위해 사용된다. cls에 대한 mini-batch의 크기가 256(=Ncls)이고, 이미지 내부에서 사용된 모든 anchor의 location이 약 2,400(=Nreg)라 하면 lamda 값은 10 정도로 설정한다.
+* __pi*__: Ground-truth label (1: anchor is positive, 0: anchor is negative)
+* **lambda**: Balancing parameter. Ncls와 Nreg 차이로 발생하는 불균형을 방지하기 위해 사용된다. cls에 대한 mini-batch의 크기가 256(=Ncls)이고, 이미지 내부에서 사용된 모든 anchor의 location이 약 2,400(=Nreg)라 하면 lamda 값은 10 정도로 설정한다.
 * **ti**: Predicted Bounding box
 * __ti*__: Ground-truth box
 
@@ -75,24 +77,29 @@ Bounding box regression 과정(Lreg)에서는 4개의 coordinate들에 대해 �
 Smooth L1 loss function(아래)을 통해 Loss를 계산한다.
 ![]({{ site.url }}/images/faster_rcnn/SmoothL1.png "SmoothL1"){: .aligncenter}
 
-R-CNN / Fast R-CNN에서는 모든 Region of Interest가 그 크기와 비율에 상관없이 weight를 공유했던 것에 비해, 이 anchor 방식에서는 k개의 anchor에 상응하는 k개의 regressor를 갖게된다.
+R-CNN / Fast R-CNN에서는 모든 Region of Interest가 그 크기와 비율에 상관없이 weight를 공유했던 것에 비해, 
+이 anchor 방식에서는 k개의 anchor에 상응하는 k개의 regressor를 갖게된다.
 
 # Training RPNs
 
 * end-to-end로 back-propagation 사용.
 * Stochastic gradient descent
-* 한 이미지당 랜덤하게 256개의 sample anchor들을 사용. 이때, Sample은 positive anchor:negative anchor = 1:1 비율로 섞는다. 혹시 positive anchor의 개수가 128개보다 낮을 경우, 빈 자리는 negative sample로 채운다. 이미지 내에 negative sample이 positive sample보다 훨씬 많으므로 이런 작업이 필요하다.
+* 한 이미지당 랜덤하게 256개의 sample anchor들을 사용. 이떄, Sample은 positive anchor:negative anchor = 1:1 비율로 섞는다. 혹시 positive anchor의 개수가 128개보다 낮을 경우, 빈 자리는 negative sample로 채운다. 이미지 내에 negative sample이 positive sample보다 훨씬 많으므로 이런 작업이 필요하다.
 * 모든 weight는 랜덤하게 초기화. (from a zero-mean Gaussian distribution with standard deviation 0.01)
 * ImageNet classification으로 fine-tuning (ZF는 모든 layer들, VGG는 conv3_1포함 그 위의 layer들만. Fast R-CNN 논문 4.5절 참고.)
 * Learning Rate: 0.001 (처음 60k의 mini-batches), 0.0001 (다음 20k의 mini-batches)
-* Momentum: 0.9* Weight decay: 0.0005
+* Momentum: 0.9
+* Weight decay: 0.0005
+
 # Sharing Features for RPN and Fast R-CNN
+
 논문상의 실험에서는 4-step alternating training 방식을 사용하였다.
+
 **4-step alternating training**
 
     1. Train RPNs
-    2. Train Fast R-CNN using the proposals from RPNs
-    3. Fix the shared convolutional layers and fine-tune unique layers to RPN
+    2. Train Fast R-CNN using the proposals from RPNs
+    3. Fix the shared convolutional layers and fine-tune unique layers to RPN
     4. Fine-tune unique layers to Fast R-CNN
 
 모델 구조가 Fast R-CNN에서 개선된 것치고 Training 절차가 다소 지저분하다.
@@ -130,7 +137,7 @@ Table9: lambda값을 조정하며 테스트. lambda가 대략 Nreg/Ncls 정도�
 # Conclusion
 실험결과에서 보이는 것처럼 약간의 정확도가 향상되었고, 실행시간이 현격히 줄어들었다. 
 헌데, 논문에서 이를 'object detection system to run at near real-time frame rates' 라고 표현하는 것으로 보아, 
-아직 실시간 영상처리 등에서 사용하기에는 다소 부족한 부분이 있는 것으로 보인다.
+아직 실시간 영상처리 등에서 사용하기에는 아직 다소 부족한 부분이 있는 것으로 보인다.
 
 # References
 
