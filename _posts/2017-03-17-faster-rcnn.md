@@ -141,7 +141,7 @@ Table9: lambda값을 조정하며 테스트. lambda가 대략 Nreg/Ncls 정도�
 
 # References
 
-* R. Girshick, J. Donahue, T.Darrel, and J. Malik, "Rich feature hierarchies for accurate object detection and semantic segmentation" [https://arxiv.org/abs/1311.2524](https://arxiv.org/abs/1311.2524)
+* R. Girshick, J. Donahue, T.Darrel, and J. Malik, "Rich feature hierarchies for accurate object detection and semantic segmentation", [https://arxiv.org/abs/1311.2524](https://arxiv.org/abs/1311.2524)
 * R. Girshick, "Fast R-CNN", [https://arxiv.org/abs/1504.08083](https://arxiv.org/abs/1504.08083)
 * Shaoqing Ren, Kaiming He, Ross Girshick, Jian Sun, "Faster R-CNN", [https://arxiv.org/abs/1506.01497](https://arxiv.org/abs/1506.01497)
 * py-faster-rcnn (Github Issues), "Why does it need a reshape layer in RPN's cls layer?", [https://github.com/rbgirshick/py-faster-rcnn/issues/292](https://github.com/rbgirshick/py-faster-rcnn/issues/292)
