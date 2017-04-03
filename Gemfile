@@ -31,3 +31,5 @@ gem 'sass', '3.4.22'
 gem 'safe_yaml', '1.0.4'
 gem 'pygments.rb'
 gem 'redcarpet'
+gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
+gem 'wdm', '>= 0.1.0'
