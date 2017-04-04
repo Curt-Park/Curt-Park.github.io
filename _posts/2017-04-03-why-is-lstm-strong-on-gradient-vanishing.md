@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Why is LSTM strong on gradient vanishing"
+title: "Why is LSTM strong on gradient vanishing?"
 description: "The reason why LSTM is strong on gradient vanishing"
 date: 2017-04-03
 tags: [deep learning]
@@ -35,7 +35,7 @@ $$\frac{\partial h_{t+1}}{\partial h_{t}}=W_{hh}*tanh'(W_{hh}h_{t} + W_{xh}X_{t+
 
 $$\frac{\partial h_{T}}{\partial h_{t}}=W_{hh}^{T-t}*\prod_{i=t}^{T-1}{tanh'(W_{hh}h_{i} + W_{xh}X_{i+1} + b_{h})}$$
 
-만약 $$W_{hh}$$의 값의 범위가 (-1,1)이라면 미분식이 깊어질수록(T-t가 커질수록) 결과값은 0에 수렴하게 될 것이다(vanished). 반대로 $$W_{hh}$$의 값이 -1보다 작거나 1보다 크면, 미분식이 깊어질 수록 결과값은 발산하는 형태를 띌 것이다(exploded).
+만약 $$W_{hh}$$의 값이 아주 작다면(-1에서 1사이) 미분식이 깊어질수록(T-t가 커질수록) 결과값은 0에 수렴하게 될 것이다(vanished). 반대로 $$W_{hh}$$의 값이 아주 크다면, 미분식이 깊어질 수록 결과값은 발산하는 형태를 띌 수 있다(exploded).
 
 # Long-Short Term Memory
 
@@ -57,8 +57,10 @@ $$\frac{\partial C_{T}}{\partial C_{t}} =
 
 $$\frac{\partial C_{T}}{\partial C_{t}}=\prod_{i=t+1}^{T}{f_{i}}$$
 
-위 식의 $$f$$는 sigmoid함수의 output이기 때문에 (0,1)사이의 값을 갖게 되는데, 이 값이 1에 가까운 값을 갖게되면 미분값(gradient)이 소멸(vanished)되는 현상을 최소한으로 줄일 수 있게된다. 
-또한 $$f$$는 1보다 큰 값을 가질 수 없으므로 미분식이 깊어진다고 해서(T-t값이 커진다고 해서) 이로인해 그 값이 넘치게(exploded) 되지는 않는다.
+위 식의 $$f$$는 sigmoid함수의 output이기 때문에 (0,1)사이의 값을 갖게 되는데, 이 값이 1에 가까운 값을 갖게되면 미분값(gradient)이 소멸(vanished)되는 것을 최소한으로 줄일 수 있게된다. 
+$$f$$값이 1에 가깝다는 것은, Cell State 공식에 의하면 오래된 기억(long term memory)에 대해 큰 비중을 둔다는 것과 같은데, 이로인해 gradient 또한 오래 유지된다는 것은 꽤나 흥미로운 현상이다.     
+
++더불어 $$f$$는 1보다 큰 값을 가질 수 없으므로 미분식이 깊어진다고 해서(T-t값이 커진다고 해서) 이로인해 그 값이 넘치게(exploded) 되지는 않는다.
 
 # Appendix: Why tanh??
 
@@ -80,6 +82,7 @@ dTanh(x)/dx의 최대값은 1이다. Sigmoid와 비교했을때 gradient vanishi
 # References
 
 * Quora, ["How does LSTM help prevent the vanishing (and exploding) gradient problem in a recurrent neural network?"](https://www.quora.com/How-does-LSTM-help-prevent-the-vanishing-and-exploding-gradient-problem-in-a-recurrent-neural-network)
+* Cross Validated, ["How does LSTM prevent the vanishing gradient problem?"](http://stats.stackexchange.com/questions/185639/how-does-lstm-prevent-the-vanishing-gradient-problem)
 * Quora, ["Why do many recurrent NNs use tanh?"](https://www.quora.com/Why-do-many-recurrent-NNs-use-tanh)
 * ReaderDocs-nn, ["Transfer Function Layers"](https://nn.readthedocs.io/en/rtd/transfer/)
 * colah's blog, ["Understanding LSTM Networks"](http://colah.github.io/posts/2015-08-Understanding-LSTMs/)
