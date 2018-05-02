@@ -55,7 +55,7 @@ Anchor box는 sliding window의 각 위치에서 Bounding Box의 후보로 사�
 - cls layer: 1X1 filter with 1 stride and 0 padding을 9*2(=18)개 적용하여 14X14X9X2의 이웃풋을 얻는다. 
 여기서 filter의 개수는, anchor box의 개수(9개) * score의 개수(2개: object? / non-object?)로 결정된다.
 - reg layer: 1X1 filter with 1 stride and 0 padding을 9*4(=36)개 적용하여 14X14X9X4의 아웃풋을 얻는다. 
-여기서 filter의 개수는, anchor box의 개수(9개) * 각 box의 좌표 표시를 위한 데이터의 개수(4개: x, y, w, h)로 결정된다. 
+여기서 filter의 개수는, anchor box의 개수(9개) * 각 box의 좌표 표시를 위한 데이터의 개수(4개: dx, dy, w, h)로 결정된다. ([코드1](https://github.com/rbgirshick/py-faster-rcnn/blob/96dc9f1dea3087474d6da5a98879072901ee9bf9/lib/rpn/proposal_layer.py#L73): 예측된 bounding box에 대한 정보, [코드2](https://github.com/rbgirshick/py-faster-rcnn/blob/96dc9f1dea3087474d6da5a98879072901ee9bf9/lib/fast_rcnn/bbox_transform.py#L30): 사전정의된 anchor box의 정보에 예측된 bounding box에 대한 정보를 반영)
 
 주목할 점은, output layer에서 사용되는 파라미터의 개수다. 
 VGG-16을 기준으로 했을때 약 2.8 X 10^4개의 파라미터를 갖게 되는데(512 X (4+2) X 9), 다른 모델들의 output layer 파라미터 개수 -가령, GoogleNet in MultiBox의 경우 약 6.1 X 10^6- 보다 훨씬 적은 것을 알 수 있다. 
