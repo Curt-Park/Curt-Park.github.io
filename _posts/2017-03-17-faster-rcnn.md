@@ -1,9 +1,9 @@
 ---
 layout: post
 title: "Faster R-CNN"
-description: "Paper review of Faster R-CNN published in Jan. 2016"
+description: "Paper study of Faster R-CNN published in Jan. 2016"
 date: 2017-03-17
-tags: [deep learning, object detection]
+tags: [object detection]
 comments: true
 share: true
 use_math: false

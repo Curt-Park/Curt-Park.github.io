@@ -3,7 +3,7 @@ layout: post
 title: "Why is LSTM strong on gradient vanishing?"
 description: "The reason why LSTM is strong on gradient vanishing"
 date: 2017-04-03
-tags: [deep learning]
+tags: [sequential models]
 comments: true
 share: true
 use_math: true
@@ -13,11 +13,11 @@ use_math: true
 
 ![]({{ site.url }}/images/lstm_strong_on_gradient_vanishing/RNN.png "RNN"){: .aligncenter}
 RNN의 $$h_{t}$$에 대한 계산식은 다음과 같다.  
-  
+
 $$h_{t}=tanh(W_{hh}h_{t-1} + W_{xh}X_{t} + b_{h})$$
 
 이때, $$h_{T}$$를 $$h_{t}$$에 대해 미분한다고 하면(T>t), 이는 chain rule에 의해 다음과 같이 표현될 수 있다. 
- 
+
 $$\frac{\partial h_{T}}{\partial h_{t}} = 
 \frac{\partial h_{T}}{\partial h_{T-1}} * 
 \frac{\partial h_{T-1}}{\partial h_{T-2}} *

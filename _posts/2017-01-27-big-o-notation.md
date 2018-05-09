@@ -3,7 +3,7 @@ layout: post
 title: "Big-O Notation"
 description: "Simple notation to estimate complexities of algorithms"
 date: 2017-01-27
-tags: [data structure, algorithm]
+tags: [algorithm]
 comments: true
 share: true
 use_math: true
@@ -109,7 +109,7 @@ $$= C|g(n)|$$
 
 > **Corollary:**  
 $$(f_1+f_2)(n)=O(g(n))$$, where $$f_1(n)=O(g(n))$$ and $$f_2(n)=O(g(n))$$.
- 
+
 #### Theorem 2
 
 Let $$f_1(n)=O(g_1(n))$$ and $$f_2(n)=O(g_2(n))$$.  
