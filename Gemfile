@@ -4,6 +4,7 @@
 source 'https://rubygems.org'
 
 ## gem 'ruby', '2.3.1'
+gem 'jekyll-admin', group: :jekyll_plugins
 gem 'jekyll', '3.3.0'
 gem 'jekyll-sass-converter', '1.3.0'
 gem 'kramdown'
