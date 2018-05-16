@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Why is LSTM strong on gradient vanishing?"
+title: "LSTM가 gradient vanishing에 강한이유?"
 description: "The reason why LSTM is strong on gradient vanishing"
 date: 2017-04-03
 tags: [sequential models]

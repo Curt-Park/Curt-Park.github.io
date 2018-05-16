@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "[Summary] High Resolution Face Completion with Multiple Controllable Attributes via Fully End-to-End Progressive Generative Adversarial Networks"
+title: "[요약] High Resolution Face Completion with Multiple Controllable Attributes via Fully End-to-End Progressive Generative Adversarial Networks"
 description: ""
 date: 2018-05-15
 tags: [inpainting]

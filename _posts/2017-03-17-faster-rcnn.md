@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Faster R-CNN"
+title: "[전격해부] Faster R-CNN"
 description: "Paper study of Faster R-CNN published in Jan. 2016"
 date: 2017-03-17
 tags: [object detection]
