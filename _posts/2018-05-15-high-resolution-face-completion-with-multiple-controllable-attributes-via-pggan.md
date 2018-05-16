@@ -71,7 +71,7 @@ GAN은 다음과 같이 discriminator와 generator 사이의 minmax게임으로 
 
 
 
-이 논문에서는 binary mask image와 attribute이미지를 encoder에 입력하여 latent vector z를 얻고, latent vector z와 attribute vector를 입력으로 완전한 이미지를 생성한다.
+이 논문에서는 binary mask image와 observed image($$I^{\text{obs}}$$)를 encoder에 입력하여 latent vector z를 얻고, latent vector z와 attribute vector를 generator의 입력으로 완전한 이미지를 생성한다.
 
 > $$G(I^{obs}, M, A; \theta_G) = G_{compl}(G_{enc}(I^{obs}, M; \theta_G^{enc}), A; \theta_G^{compl})$$
 
@@ -81,7 +81,7 @@ GAN은 다음과 같이 discriminator와 generator 사이의 minmax게임으로 
 
 
 
-Discriminator의 경우, ground truth image 또는 generator에 의해 생성된 이미지가 입력되며 attribute vector와 이미지의 판별에 대한 두 개의 output branches가 존재한다.
+Discriminator의 경우, ground truth image 또는 generator에 의해 생성된 이미지가 입력되며 attribute vector와 ground truth 이미지의 판별을 위한 두 개의 output branches를 갖게된다.
 
 > $$D(I;\theta_D) = \{ D_{cls}(F(I;\theta_D^F);\theta_D^{cls}), D_{attr}(F(I;\theta_{D}^F); \theta_D^{attr}) \}$$
 
@@ -148,13 +148,13 @@ Discriminator의 경우, ground truth image 또는 generator에 의해 생성된
 
 <br />
 
-* **Feature Loss:** 이름 그대로 feature level에서의 reconstruction loss다. $$\phi_j$$ 는 j번째 layer에 대한 activation을 의미한다. 논문에서는 VGG16 pretrained on the ImageNet dataset의 relu2_2 layer가 이용되었다.
+* **Feature Loss:** 이름 그대로 feature level에서의 reconstruction loss다. $$\phi_j$$ 는 j번째 layer에 대한 activation을 의미한다. 논문에서는 VGG16 pretrained on the ImageNet dataset의 relu2_2 layer가 사용되었다.
 
 > $$l_{feat}(I^{real}, M, I^{obs}, A^{obs} | \phi, G) = \| \phi_j(I^{real}) - \phi_j(I^{syn})\|_2^2$$
 
 <br />
 
-* **Boundary Loss:** target region과 context region 사이의 boundary가 더욱 매끄럽게 생성되게 하기위해 이용된다. Mask image M의 boundary를 blurring하여 w를 얻고, 이를 $$I^{real}$$ 과 $$I^{syn}$$ 의 pixel단위 차이에 대해 곱해준다. 이 방식으로 인해 boundary에 가까운 pixel일 수록 큰 loss를 얻게 될 것이다.
+* **Boundary Loss:** target region과 context region 사이의 boundary를 더욱 매끄럽게 생성하기위해 정의된다. Mask image M의 boundary를 blurring하여 w를 얻고, 이를 $$I^{real}$$ 과 $$I^{syn}$$ 의 pixel단위 차이에 대해 곱해준다. 이 방식으로 인해 boundary에 가까울수록  $$I^{real}$$ 과 $$I^{syn}$$ 의 차이에 예민하게 반응할 것이다.
 
 > $$l_{bdy}(I^{real}, M, I^{obs}, A^{obs} \mid G) = \| w \odot (I^{real} - I^{syn}) \|_1.$$
 
@@ -164,7 +164,7 @@ Discriminator의 경우, ground truth image 또는 generator에 의해 생성된
 
 **Total Loss** 
 
-앞서 정의한 다섯가지의 loss를 trade-off parameter $$\lambda$$ 와 곱한뒤 모두 더해주면 최종 Loss가 완성된다.
+앞서 정의한 다섯가지의 loss를 각각 trade-off parameter $$\lambda$$ 와 곱한뒤 모두 더해주면 최종 Loss가 완성된다.
 
 > $$\begin{align}
 > min_G max_D L(G, D) = &L_{adv} (G, D) + \lambda_{attr} \cdot L_{attr}(G, D) +\\
@@ -181,7 +181,7 @@ Discriminator의 경우, ground truth image 또는 generator에 의해 생성된
 
 ![Fig3]({{ site.url }}/images/high_resolution_face_completion_pggan/Fig3.png "Fig3"){: .aligncenter}
 
-U-Net이나 Hour-glass network처럼 $$G_{enc}$$ 와 $$G_{compl}$$ 에는 layer 사이에 residual connection이 존재한다. Fig3는 좌측부터 각각 generator의 학습과정에 attributes와 없을때 / 있을때를 나타낸다.
+U-Net이나 Hour-glass network처럼 $$G_{enc}$$ 와 $$G_{compl}$$ 에는 layer 사이에 residual connection이 존재한다. Fig3는 좌측부터 각각 generator의 학습과정에 attribute vector가 없을때 / 있을때를 나타낸다.
 
 <br />
 
@@ -195,7 +195,7 @@ U-Net이나 Hour-glass network처럼 $$G_{enc}$$ 와 $$G_{compl}$$ 에는 layer 
 
 
 
-1024x1024 보다 낮은 입력 이미지에 대해서는 average pooling을 통해 mask와 real image를 down-sampling한다. 또한 Instance Normalization을 사용하고, 학습의 안정성을 위해 discriminator의 입력에 최근 생성된 이미지 뿐만 아니라 그 이전에 생성되었던 이미지를 같이 사용한다.(history buffer)
+1024x1024 보다 낮은 입력 이미지에 대해서는 average pooling을 통해 mask와 real image를 down-sampling한다. 또한 Instance Normalization을 사용하고, 학습의 안정성을 위해 discriminator의 입력으로 최근 생성된 이미지 뿐만 아니라 그 이전에 생성되었던 이미지를 같이 사용한다.(history buffer)
 
 <br />
 
