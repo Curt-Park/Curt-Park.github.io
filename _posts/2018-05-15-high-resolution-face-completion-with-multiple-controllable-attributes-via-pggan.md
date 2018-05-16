@@ -131,7 +131,7 @@ Discriminator의 경우, ground truth image 또는 generator에 의해 생성된
 * **Attribute Loss:** predicted attribute vector, $$\hat{A}^{real} = D_{attr}(I^{real})$$ 과 $$\hat{A}^{obs}=D_{attr}(I^{obs})$$ 와 각각의 target인, $$A^{real}$$ 과 $$A^{obs}$$ 간의 cross-entropy로 산출된다.
 
 > $$\begin{align}
-> l_{attr}(I^{real}, A^{real}, M, I^{obs}, A^{obs} \mid G, D) = &\sum_{i=1}^N (a_i^{real} log (\hat{a_i^{real}}) +
+> L_{attr}(I^{real}, A^{real}, M, I^{obs}, A^{obs} \mid G, D) = &\sum_{i=1}^N (a_i^{real} log (\hat{a_i^{real}}) +
 > (1 - a_i^{real})log(1-\hat{a_i}^{real})) +\\ 
 > &\sum_{i=1}^N(a_i^{obs} log(\hat{a_i}^{obs}) + (1-a_i^{obs})log(1 - \hat{a_i^{obs}})).
 > \end{align}$$
@@ -141,7 +141,7 @@ Discriminator의 경우, ground truth image 또는 generator에 의해 생성된
 * **Reconstruction Loss:** 이 모델에서는 이미지 전체가 생성되기 때문에 target region과 context region에 대해서 reconstruction loss를 취해준다.
 
 > $$\begin{align}
-> l_{rec}(I^{real}, M, I^{obs}, A^{obs} \mid G) = &\| \alpha \cdot M \odot (I^{real} - I^{syn}) \|_1 +\\
+> L_{rec}(I^{real}, M, I^{obs}, A^{obs} \mid G) = &\| \alpha \cdot M \odot (I^{real} - I^{syn}) \|_1 +\\
 > &\|(1-\alpha) \cdot (1 - M) \odot (I^{real} - I^{syn}) \|_1.\\
 > \end{align}\\\\
 > \text{where } \odot \text{represents element-wise multiplication and } \alpha \text{ is the trade-off parameter.}$$
@@ -150,13 +150,13 @@ Discriminator의 경우, ground truth image 또는 generator에 의해 생성된
 
 * **Feature Loss:** 이름 그대로 feature level에서의 reconstruction loss다. $$\phi_j$$ 는 j번째 layer에 대한 activation을 의미한다. 논문에서는 VGG16 pretrained on the ImageNet dataset의 relu2_2 layer가 사용되었다.
 
-> $$l_{feat}(I^{real}, M, I^{obs}, A^{obs} | \phi, G) = \| \phi_j(I^{real}) - \phi_j(I^{syn})\|_2^2$$
+> $$L_{feat}(I^{real}, M, I^{obs}, A^{obs} | \phi, G) = \| \phi_j(I^{real}) - \phi_j(I^{syn})\|_2^2$$
 
 <br />
 
 * **Boundary Loss:** target region과 context region 사이의 boundary를 더욱 매끄럽게 생성하기위해 정의된다. Mask image M의 boundary를 blurring하여 w를 얻고, 이를 $$I^{real}$$ 과 $$I^{syn}$$ 의 pixel단위 차이에 대해 곱해준다. 이 방식으로 인해 boundary에 가까울수록  $$I^{real}$$ 과 $$I^{syn}$$ 의 차이에 예민하게 반응할 것이다.
 
-> $$l_{bdy}(I^{real}, M, I^{obs}, A^{obs} \mid G) = \| w \odot (I^{real} - I^{syn}) \|_1.$$
+> $$L_{bdy}(I^{real}, M, I^{obs}, A^{obs} \mid G) = \| w \odot (I^{real} - I^{syn}) \|_1.$$
 
 <br />
 
