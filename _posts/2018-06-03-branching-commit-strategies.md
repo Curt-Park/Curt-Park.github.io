@@ -17,13 +17,14 @@ This documentation will be working as a simple guidance to make a full consensus
 
 1. [Git commit message](#git-commit-message)
 2. [Git branching strategy](#git-branching-strategy)
-3. [References](#references)
+3. [Test automation](#test-automation)
+4. [References](#references)
 
 
 
 ## Git commit message [[1](https://chris.beams.io/posts/git-commit/)]
 
-Carefully written commit messages help contributors gain a better sense of the overall history and even great intuition for detailed changes. In order to create a useful revision history, teams should comply with a commit message convention that defines the following seven rules.
+Carefully written commit messages help contributors gain a better sense of the overall history and even great intuition for detailed changes. In order to create a useful revision history, teams should comply with a commit message convention that defines the following seven rules:
 
 1. **Separate subject from body with a blank line**: Sometimes a single line is fine when it comes to a very simple change that people can fully understand without difficulties.
 2. **Limit the subject line to 50 characters**: Proper length of title ensures that it is readable. GitHub's UI is fully aware of these conventions, so it will warn you if you go over the 50 character limit; any subject line longer than 72 characters will be truncated.
@@ -75,7 +76,7 @@ See also: #456, #789
 autocmd Filetype gitcommit setlocal spell textwidth=72
 ```
 
-Note that the default `gitcommit.vim` syntax file already stops highlighting the first line after 50 characters[[5](https://stackoverflow.com/questions/43929991/limit-subject-line-of-git-commit-message-to-50-characters)].
+*Note that* the default `gitcommit.vim` syntax file already stops highlighting the first line after 50 characters[[5](https://stackoverflow.com/questions/43929991/limit-subject-line-of-git-commit-message-to-50-characters)].
 
 
 
@@ -218,7 +219,7 @@ git push origin features/test-squash-merging
 
 #### Important settings for remote branches
 
-You can change some important settings for remote branches in 'Branches' tab of 'Settings'. Here is an example configuration.
+You can change some important settings for remote branches in 'Branches' tab of 'Settings'. Here is an example configuration:
 
 > ![]({{ site.url }}/images/git-commit-workflow/settings2.png "settings2"){: .aligncenter}
 
@@ -227,22 +228,95 @@ You can change some important settings for remote branches in 'Branches' tab of 
 
 
 
+## Test automation
+
+Test automation is a critical part for [Continuous integration](https://martinfowler.com/articles/continuousIntegration.html); you can make your project more stable and efficient by automating all repetitive tests neccessarily conducted for every commit or pull request. Here, I use [Travis CI](https://travis-ci.org/) which provides a variety of features for test automation, requiring  just little effort. It works really well with GitHub.
+
+
+
+#### Static analysis and Unittest automation via Travis CI
+
+By the following steps, you can easily make tests run for every single change on your repository. 
+
+
+
+**Step1**. Sign up for [Travis CI](https://travis-ci.org/)
+
+**Step2**. Register your repository you would like to run automated tests
+
+**Step3**. Register a token on your Github repository
+
+> ![]({{ site.url }}/images/git-commit-workflow/travis-ci-token1.png "travis-ci-token1"){: .aligncenter}
+
+The token can be obtained from your profile page in Travis CI.
+
+>![]({{ site.url }}/images/git-commit-workflow/travis-ci-token2.png "travis-ci-token2"){: .aligncenter}
+
+**Step4**. Write `.travis.yml` on your repository and push the file. Here is an example:
+
+```bash
+language: python
+
+python:
+    - "3.6"
+
+env:
+    - pip install -r requirements.txt
+
+sudo: false
+
+install:
+    # flake8: static analysis and style checks against PEP8
+    - pip install -U flake8
+    # pytest: unittest
+    - pip install -U pytest
+
+before_script:
+    # Static analysis
+    - flake8 .
+
+script:
+    # Unittest
+    - pytest
+```
+
+There are plenty of choice[[8](https://blog.codacy.com/review-of-python-static-analysis-tools-ff8e7e27f972)] for Python static analysis tools. I go for `flake8` offering both static analysis and style checks against [PEP8](https://www.python.org/dev/peps/pep-0008/). Recently, `flake8` is widely used for many open source projects because it is so light and easy to use for beginners[[9](https://www.reddit.com/r/Python/comments/82hgzm/any_advantages_of_flake8_over_pylint/)].<br/>
+
+*Note that* You can see more examples from Travis CI user documentation[[10](https://docs.travis-ci.com/user/languages/python/)]. As for `pytest`, see the official guide[[11](https://docs.pytest.org/en/latest/getting-started.html)].
+
+**Step5**. See if all tests run well.
+
+> ![]({{ site.url }}/images/git-commit-workflow/test-result.png "test result on Travis CI"){: .aligncenter}
+
+
+
+#### Restriction on GitHub repository 
+
+You should add a restriction on GitHub to ensure every pull request fully verified before merged. Just activate the following checkboxes in the red box:
+
+> ![]({{ site.url }}/images/git-commit-workflow/settings3.png "settings3"){: .aligncenter}
+
+
+
+#### Useful keywords for further studies
+
+* Code coverage check
+* Code climate
+
+
+
 <br/>
 
 ## References
 
 1. Chris, B. (2013). *How to Write a Git Commit Message*. [Online] Available at: https://chris.beams.io/posts/git-commit/ [Accessed 3 June 2018].
-
 2. Rachel, P. (2015). *What’s with the 50/72 rule?*. [Online] Available at: https://medium.com/@preslavrachev/what-s-with-the-50-72-rule-8a906f61f09c [Accessed 3 June 2018].
-
-3. u/GMTA. (2014). *Why do a lot of developers apply a 72-character line limit to their commit messages? Why not let software handle wrapping?*. Available at: https://www.reddit.com/r/git/comments/20ko8g/why_do_a_lot_of_developers_apply_a_72character/ [Accessed 3 June 2018].
-
+3. GMTA. (2014). *Why do a lot of developers apply a 72-character line limit to their commit messages? Why not let software handle wrapping?*. Available at: https://www.reddit.com/r/git/comments/20ko8g/why_do_a_lot_of_developers_apply_a_72character/ [Accessed 3 June 2018].
 4. Thompson, C. (2013). *5 Useful Tips For A Better Commit Message*. [Online] Available at: https://robots.thoughtbot.com/5-useful-tips-for-a-better-commit-message [Accessed 3 June 2018].
-
 5. Tournoij, M. (2017). *Limit subject line of git commit message to 50 characters*. [Online] Available at: https://stackoverflow.com/questions/43929991/limit-subject-line-of-git-commit-message-to-50-characters [Accessed 3 June 2018].
-
 6. Visual Studio Team Service. (2018). *Adopt a Git branching strategy*. [Online] Available at: https://docs.microsoft.com/en-us/vsts/git/concepts/git-branching-guidance [Accessed 3 June 2018].
-
 7. The GitHub Blog. (2016). *Squash your commits*. [Online] Available at: https://blog.github.com/2016-04-01-squash-your-commits/ [Accessed 3 June 2018].
-
-   
+8. Codacy. (2016). *Review of Python Static Analysis Tools*. [Online] Available at: https://blog.codacy.com/review-of-python-static-analysis-tools-ff8e7e27f972 [Accessed 4 June 2018].
+9. mzfr98. (2018). *Any advantages of Flake8 over PyLint?*. [Online] Available at: https://www.reddit.com/r/Python/comments/82hgzm/any_advantages_of_flake8_over_pylint/ [Accessed 4 June 2018].
+10. Travis CI. (2018). *Building a Python Project*. [Online] Available at: https://docs.travis-ci.com/user/languages/python/ [Accessed 4 June 2018].
+11. pytest. (2018). *Installation and Getting Started*. [Online] Available at: https://docs.pytest.org/en/latest/getting-started.html [Accessed 4 June 2018].
