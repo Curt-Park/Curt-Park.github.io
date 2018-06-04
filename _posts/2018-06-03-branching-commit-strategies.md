@@ -24,7 +24,7 @@ This documentation will be working as a simple guidance to make a full consensus
 
 ## Git commit message [[1](https://chris.beams.io/posts/git-commit/)]
 
-Carefully written commit messages help contributors gain a better sense of the overall history and even great intuition for detailed changes. In order to create a useful revision history, teams should comply with a commit message convention that defines the following seven rules:
+Carefully written commit messages help contributors gain a better sense of the overall history and even great intuition for the changes. In order to create a useful revision history, teams should comply with a commit message convention that defines the following seven rules:
 
 1. **Separate subject from body with a blank line**: Sometimes a single line is fine when it comes to a very simple change that people can fully understand without difficulties.
 2. **Limit the subject line to 50 characters**: Proper length of title ensures that it is readable. GitHub's UI is fully aware of these conventions, so it will warn you if you go over the 50 character limit; any subject line longer than 72 characters will be truncated.
@@ -108,10 +108,10 @@ Use a consistent naming convention for your feature branches to identify the wor
 
 Some suggestions for naming your feature branches:
 
-- `features/feature-name`
-- `features/feature-area/feature-name`
-- `personal/username/description`
-- `personal/username/workitem`
+- `feat/feature-name`
+- `feat/feature-area/feature-name`
+- `user/username/description`
+- `user/username/workitem`
 - `bugfix/description`
 - `hotfix/description`
 
