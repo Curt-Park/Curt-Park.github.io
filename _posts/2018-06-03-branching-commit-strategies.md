@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "[Tip] Git commit message & branching strategies on Github"
-description: ""
+title: "[Tip] Collaborating on Github"
+description: "Commit messages, branching strategies, and test automation"
 date: 2018-06-03
 tags: [github]
 comments: true
@@ -98,7 +98,7 @@ A strategy that extends these concepts and avoids contradictions will result in 
 
 
 
-Develop your features and fix bugs in feature branches (also known as topic branches) based off your master branch. Feature branches isolate work in progress from the completed work in the master branch. Git branches are inexpensive to create and maintain, so even small fixes and changes should have their own feature branch. *One thing to note* is that you should create a personal branch if you are not working alone on a feature branch. In that case, the personal branch will be merged into the feature branch via pull request.
+Develop your features and fix bugs in feature branches (also known as topic branches) based off your master branch. Feature branches isolate work in progress from the completed work in the master branch. Git branches are inexpensive to create and maintain, so even small fixes and changes should have their own feature branch. *One thing to note* is that you should create another feature branch, which is called user or personal branch, if you are not working alone on the feature branch. In that case, the user branch will be merged into the feature branch via pull request.
 
 
 
@@ -280,7 +280,7 @@ script:
     - pytest
 ```
 
-There are plenty of choice[[8](https://blog.codacy.com/review-of-python-static-analysis-tools-ff8e7e27f972)] for Python static analysis tools. I go for `flake8` offering both static analysis and style checks against [PEP8](https://www.python.org/dev/peps/pep-0008/). Recently, `flake8` is widely used for many open source projects because it is so light and easy to use for beginners[[9](https://www.reddit.com/r/Python/comments/82hgzm/any_advantages_of_flake8_over_pylint/)].<br/>
+There are plenty of choice[[8](https://blog.codacy.com/review-of-python-static-analysis-tools-ff8e7e27f972)] for Python static analysis tools. My team go for `flake8` offering both static analysis and style checks against [PEP8](https://www.python.org/dev/peps/pep-0008/). Recently, `flake8` is widely used for many open source projects because it is so fast and easy to use[[9](https://www.reddit.com/r/Python/comments/82hgzm/any_advantages_of_flake8_over_pylint/)].<br/>
 
 *Note that* You can see more examples from Travis CI user documentation[[10](https://docs.travis-ci.com/user/languages/python/)]. As for `pytest`, see the official guide[[11](https://docs.pytest.org/en/latest/getting-started.html)].
 
