@@ -81,7 +81,7 @@ local r5 = Residual(128,opt.nFeats)(r4)
 
 Stacked Hourgalss Networks는 다수의 Hourglass Network를 쌓아놓은 구조다. 이 구조는 반복적인 bottom-up, top-down inference를 가능하게 하며, 이를 통해 initial estimates와 이미지 전반에 대한 feature를 다시금 추정(reevaluation)할 수 있게 한다(위 그림 참조). 여기서 중요한 점은 중간중간에서 얻어지는 예측값(the prediction of intermideate heatmaps)들에 대해서도 ground truth와의 loss를 적용할 수 있다는 것이다 (Intermediate Supervision). 반복적인 예측값의 조정으로 좀 더 세밀한 결과를 도출할 수 있으며, 중간중간 적용되는 loss로 인해 좀 더 깊고 안정적인 학습이 가능하리라 예상할 수 있다. <br/>
 
-그렇다면 그 방법에 대해 알아보도록 하자 (위 그림 참고). Intermediate predictions에 1x1 convolutional filter를 적용하여 그 차원수를 증가시키고, 이를 이번 hourglass의 intermediate features와 이전 hourglass stage에서의 features output과 합산한다. 그리고 이 합산 결과는 고스란히 연이어 등장하는 hourglass module의 입력이 된다. (최종적인 network design에서는 8개의 hourglass module이 사용되었다.)<br/>
+그렇다면 그 방법에 대해 알아보도록 하자. Intermediate predictions에 1x1 convolutional filter를 적용하여 그 차원수를 증가시키고, 이를 이번 hourglass stage의 intermediate features와 이전 hourglass stage에서의 features output과 합산한다. 그리고 이 합산 결과는 고스란히 연이어 등장하는 hourglass module의 입력이 된다. (최종적인 network design에서는 8개의 hourglass module이 사용되었다.)<br/>
 
 **! 주의할 점**
 
