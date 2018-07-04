@@ -181,7 +181,12 @@ Discriminator의 경우, ground truth image 또는 generator에 의해 생성된
 
 ![Fig3]({{ site.url }}/images/high_resolution_face_completion_pggan/Fig3.png "Fig3"){: .aligncenter}
 
-U-Net이나 Hour-glass network처럼 $$G_{enc}$$ 와 $$G_{compl}$$ 에는 layer 사이에 residual connection이 존재한다. Fig3는 좌측부터 각각 generator의 학습과정에 attribute vector가 없을때 / 있을때를 나타낸다.
+이 모델의 generator $$G$$는 $$G_{enc}$$와 $$G_{compl}$$로 구성되는 U-shape network로 구현된다. $$G_{enc}$$와 $$G_{compl}$$의 layer들 사이에는 U-Net,  [Hourglass network]({{ site.url }}/2018-07-03/stacked-hourglass-networks-for-human-pose-estimation/)와 같은 residual connection이 존재하는데, 이는 여러 scale에 대한 정보를 잘 활용하기 위함이다. Fig3는 좌측부터 각각 generator의 학습과정에 attribute vector가 없을때 / 있을때를 나타낸다. 
+
+- 좌측: Attribute가 없다는 것은 네트워크가 inpainting 작업만을 함을 의미하는데, 이 구조는 copy-and-concatenate 연산의 skip connection으로써 synthesized image와 real face 사이의 identity information을 유지하는데 도움을 준다.
+- 우측: Attribute가 있다는 것은 네트워크가 conditional completion 작업을 함을 의미한다. 여기서는 direct concatenation 대신 residual block들로 skip connection이 구성된다. Attribute에 의해 synthesized content를 조정하는 것에는 이러한 구조가 더욱 잘 동작한다.
+
+
 
 <br />
 
@@ -196,6 +201,8 @@ U-Net이나 Hour-glass network처럼 $$G_{enc}$$ 와 $$G_{compl}$$ 에는 layer 
 
 
 1024x1024 보다 낮은 입력 이미지에 대해서는 average pooling을 통해 mask와 real image를 down-sampling한다. 또한 Instance Normalization을 사용하고, 학습의 안정성을 위해 discriminator의 입력으로 최근 생성된 이미지 뿐만 아니라 그 이전에 생성되었던 이미지를 같이 사용한다.(history buffer)
+
+
 
 <br />
 
