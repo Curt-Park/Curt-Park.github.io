@@ -13,11 +13,15 @@ use_math: true
 
 
 
+*주관적 의견은 이탤릭체로 표기하였습니다.*<br/>
+
+
+
 ## Introduction
 
 사진 속에 담긴 사람들에 대해 더욱 이해를 높이기 위해서는 그들이 취하고 있는 포즈에 대해 먼저 이해하는 것이 중요하다. 이러한 연구주제를 human pose estimation이라고 하며, 이는 computer vision에서 오랫동안 다루어지고 있는 분야이기도 하다. 근래의 pose estimation system들은 대부분 수작업으로 생성한 feature들이나 graphical model을 사용하는 것에서 ConvNets을 주요 구조에 반영하는 것으로 옮겨갔다. 이 연구에서는 ConvNets을 이용하는 것의 연장선으로, 이미지의 모든 scale에 대한 정보를 downsampling의 과정에서 추출하고 이를 upsampling 과정에 반영하여 pixel-wise output을 생성하는 것을 목표로 한다. 또한 이 아이디어(single hourglass)를 확장하여 여러 hourglass module을 연속하여 잇는 방식인 Stacked Hourglass Networks 구조를 소개한다. 이 구조는 여러 scale들에 대해 반복적인 bottom-up, top-down inference*를 가능하게 하며, 표준 pose estimation benchmarks(FLIC and MPII Human Pose)에서 확연한 성능 향상을 보여준다.<br/>
 
-(* Inference를 하기까지 차원축소의 단계와 차원증가의 단계를 거치는 형태를 명칭하는 것으로 보인다.)
+(* *Inference를 하기까지 차원축소의 단계와 차원증가의 단계를 거치는 형태를 명칭하는 것으로 보인다.*)
 
 ![title]({{ site.url }}/images/stacked_hourglass_networks/fig1.png "fig1"){: .aligncenter}
 
@@ -52,7 +56,7 @@ Hourglass Network는 다음과 같은 구조를 보인다.
 
 Figure3의 각 box는 위 그림과 같은 residual module이다. 3x3보다 큰 filter는 사용되지 않고 메모리 사용량의 줄이기 위해 bottelneck 구조를 이용한다.<br/>
 
-눈여겨볼 점은 해상도가 256x256일때 굉장히 높은 GPU 메모리 사용량을 요구하기 때문에 아래와 같은 이미지 전처리 과정을 거친다는 것이다[[3](https://github.com/umich-vl/pose-hg-train/blob/master/src/models/hg.lua#L37)]. 64x64 크기의 입력으로도 성능에는 지장이 없다고 한다.
+눈여겨볼 점은 해상도가 256x256일때 굉장히 높은 GPU 메모리 사용량을 요구하기 때문에 아래와 같은 이미지 전처리 과정을 거친다는 것이다[[3](https://github.com/umich-vl/pose-hg-train/blob/master/src/models/hg.lua#L37)]. 64x64 크기의 입력으로도 성능에는 지장이 없다고 한다[1].
 
 ```lua
 -- Input size: (256, 256, 3)
@@ -71,7 +75,7 @@ local r5 = Residual(128,opt.nFeats)(r4)
 3. max pooling layer (w&h size: 128 -> 64, output channel: 128)
 4. Two subsequent residual modules (output channel: 256)
 
-참고로 Hourglass Network 내부의 모든 residual model은 output channel의 크기가 256이다.
+참고로 Hourglass Network 내부의 모든 residual module은 output channel의 크기가 256이다.
 
 
 
@@ -79,7 +83,7 @@ local r5 = Residual(128,opt.nFeats)(r4)
 
 ![title]({{ site.url }}/images/stacked_hourglass_networks/fig4-right.png "fig4-right"){: .aligncenter}
 
-Stacked Hourgalss Networks는 다수의 Hourglass Network를 쌓아놓은 구조다. 이 구조는 반복적인 bottom-up, top-down inference를 가능하게 하며, 이를 통해 initial estimates와 이미지 전반에 대한 feature를 다시금 추정(reevaluation)할 수 있게 한다(위 그림 참조). 여기서 중요한 점은 중간중간에서 얻어지는 예측값(the prediction of intermideate heatmaps)들에 대해서도 ground truth와의 loss를 적용할 수 있다는 것이다 (Intermediate Supervision). 반복적인 예측값의 조정으로 좀 더 세밀한 결과를 도출할 수 있으며, 중간중간 적용되는 loss로 인해 좀 더 깊고 안정적인 학습이 가능하리라 예상할 수 있다. <br/>
+Stacked Hourgalss Networks는 다수의 Hourglass Network를 쌓아놓은 구조다. 이 구조는 반복적인 bottom-up, top-down inference를 가능하게 하며, 이를 통해 initial estimates와 이미지 전반에 대한 feature를 다시금 추정(reevaluation)할 수 있게 한다(위 그림 참조). 여기서 중요한 점은 중간중간에서 얻어지는 예측값(the prediction of intermideate heatmaps)들에 대해서도 ground truth와의 loss를 적용할 수 있다는 것이다 (Intermediate Supervision). *반복적인 예측값의 조정으로 좀 더 세밀한 결과를 도출할 수 있으며, 중간중간 적용되는 loss로 인해 좀 더 깊고 안정적인 학습이 가능하리라 예상할 수 있다.* <br/>
 
 그렇다면 그 방법에 대해 알아보도록 하자. Intermediate predictions에 1x1 convolutional filter를 적용하여 그 차원수를 증가시키고, 이를 이번 hourglass stage의 intermediate features와 이전 hourglass stage에서의 features output과 합산한다. 그리고 이 합산 결과는 고스란히 연이어 등장하는 hourglass module의 입력이 된다. (최종적인 network design에서는 8개의 hourglass module이 사용되었다.)<br/>
 
@@ -128,4 +132,4 @@ We demonstrate the effectiveness of a stacked hourglass network for producing hu
 
 1. Newell, A., Yang, K., Deng, J. (2016). *Stacked Hourglass Networks for Human Pose Estimation*.  [Computer Vision – ECCV 2016](https://link.springer.com/book/10.1007/978-3-319-46484-8), pp. 483-499.
 2. [Computerphile](https://www.youtube.com/channel/UC9-y-6csu5WGm29I7JiwpnA) (2016). *Resizing Images*. [Video]. Available at: https://youtu.be/AqscP7rc8_M [Accessed 3 Jul. 2018].
-3. Michigan Vision & Learning Lab. (2015). *Stacked Hourglass Networks for Human Pose Estimation (Training Code)*. [Code]. Available at: https://github.com/umich-vl/pose-hg-train [Accessed 3 Jul. 2018]
+3. Michigan Vision & Learning Lab. (2016). *Stacked Hourglass Networks for Human Pose Estimation (Training Code)*. [Code]. Available at: https://github.com/umich-vl/pose-hg-train [Accessed 3 Jul. 2018]
