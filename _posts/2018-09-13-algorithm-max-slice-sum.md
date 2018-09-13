@@ -72,3 +72,19 @@ def solution(A):
     return max
 ```
 
+
+
+**Another Answer**
+
+We can get the same solution by using 2 max functions. The first max gets cumulative sum for the current slice, and the second max keeps or updates the max slice sum.
+
+```python
+def solution(A):
+    max_sum = sub_sum = A[0]
+    for i in range(1, len(A)):
+        sub_sum = max(sub_sum + A[i], A[i])
+        max_sum = max(max_sum, sub_sum)
+    
+    return max_sum
+```
+
