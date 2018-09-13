@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "[알고리즘] EquiLeader"
+title: "[Algorithm] EquiLeader"
 description: "Find the index S such that the leaders of the sequences A[0], A[1], ..., A[S] and A[S + 1], A[S + 2], ..., A[N - 1] are the same."
 date: 2018-09-06
 tags: [algorithm]
@@ -9,11 +9,15 @@ share: true
 use_math: false
 ---
 
-Codility의 연습문제: [Lesson 8 Leader - EquiLeader](https://app.codility.com/programmers/lessons/8-leader/equi_leader/)
+Codility's Lessons: [Lesson 8 Leader - EquiLeader](https://app.codility.com/programmers/lessons/8-leader/equi_leader/)
 
 
 
-## 문제
+Thanks to this task, I have learned the average time complexity of python's dict family. Unlike my initial expectation, it shows just O(1) for insertion operation. I thought the inner structure of it would be balanced tree such as the usual implementation of std::map in C++. [[Reference](https://en.cppreference.com/w/cpp/container/map)]
+
+
+
+## Task Description
 
 A non-empty array A consisting of N integers is given.
 
@@ -51,9 +55,13 @@ Write an **efficient** algorithm for the following assumptions:
 
 
 
-## 답변
+## My Answer
 
 * **Detected Time Complexity:** O(N)
+
+As seen in [CPython implementation](https://hg.python.org/cpython/file/tip/Modules/_collectionsmodule.c#l1974), defaultdict is a type consisting of Python dictionary object (PyDictObject) and default_factory. Aside from the running cost of default_factory, it has the same time complexity as dict ([Stackoverflow](https://stackoverflow.com/a/19643045), [UCI ICS-46](https://www.ics.uci.edu/~pattis/ICS-33/lectures/complexitypython.txt)). defaultdict explicits Hash Table and shows just O(1) for insertion operation in average ([Python Wiki](https://wiki.python.org/moin/TimeComplexity)).
+
+**More read**: [Everything about Python dict - Stackoverflow](https://stackoverflow.com/a/9022835)
 
 ```python
 from collections import defaultdict
@@ -80,7 +88,3 @@ def solution(A):
             
     return n_equi_leader
 ```
-
-defaultdict는 Python dictionary object (PyDictObject)에 default_factory가 붙어있는 형태를 하고있다 (참고: [CPython 소스코드](https://hg.python.org/cpython/file/tip/Modules/_collectionsmodule.c#l1974)). Factory의 동작에 따라 발생하는 약간의 성능차이를 제외하면 (참고: [Stackoverflow](https://stackoverflow.com/a/19643045)) dict와 동일한 시간복잡도를 가진다 (참고: [UCI ICS-46 강의자료](https://www.ics.uci.edu/~pattis/ICS-33/lectures/complexitypython.txt)). defaultdict는 내부적으로 hash table을 사용하며 insertion 연산에 평균적으로 O(1)의 시간복잡도를 보인다 (참고: [파이썬위키](https://wiki.python.org/moin/TimeComplexity)).
-
-* **더 읽을거리**: [Everything about Python dict - Stackoverflow](https://stackoverflow.com/a/9022835)
