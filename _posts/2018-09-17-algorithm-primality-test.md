@@ -110,7 +110,7 @@ def primality(n):
 
 
 
-## 연습문제: CountFactors
+## 연습문제: MinPerimeterRectangle
 
 **출처:** Codility *Lesson 10* - [MinPerimeterRectangle](https://app.codility.com/programmers/lessons/10-prime_and_composite_numbers/min_perimeter_rectangle/)
 
@@ -155,7 +155,7 @@ Write an **efficient** algorithm for the following assumptions:
 def solution(N):
     min_perimeter = 2 * (1 + N)
     i = 2
-    while i**2 <= N:
+    while i ** 2 <= N:
         if N % i == 0:
             A, B = i, N // i
             min_perimeter = min(2*(A+B), min_perimeter)
