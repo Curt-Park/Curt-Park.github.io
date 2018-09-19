@@ -250,7 +250,7 @@ KL Divergence는 정보량의 차이에 대한 기댓값이다. 만약 $$q$$가 
 
 참고로 $$p$$와 $$q$$의 분포가 동일할 경우, 두 정보량의 차는 0이 되므로 이때 KL Divergence는 0을 반환한다.
 
-* **Note:** KL Divergence는 분자와 분모가 바뀌면 다른 값을 반환한다. 즉, symmetric하지 않다.
+* **Note:** KL Divergence는 $$p$$와 $$q$$의 순서가 바뀌면 다른 값을 반환한다. 즉, symmetric하지 않다.
 
 ![]({{ site.url }}/images/loss-cross-entropy/KL-Gauss-Example.png "fig2"){: .aligncenter}
 
