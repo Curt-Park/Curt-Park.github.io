@@ -17,11 +17,11 @@ Probabilistic classification 모델을 학습한다고 가정해보자. 이때 �
 
 
 
-각각의 입력이 둘 중 하나의 class를 가지는 경우로 예를 들어보겠다. 모델은 입력을 가장 잘 묘사하고 있는 class 하나를 골라야 한다. 만약에 ground-truth probabailites가 $$y = (1.0, 0.0)^T$$인데, 모델이 예측한 분포가 $$\hat{y} = (0.4, 0.6)^T$$이었다면 파라미터는 $$\hat{y}$$가 좀 더 $$y$$에 가까운 값을 갖을 수 있도록 조정되어야 할 것이다.
+각각의 입력이 둘 중 하나의 class를 가지는 경우로 예를 들어보겠다. 모델은 입력을 가장 잘 묘사하고 있는 class 하나를 골라야 한다. 만약에 ground-truth probabailites가 $$y = (1.0, 0.0)^T$$인데, 모델의 예측(prediction)이 $$\hat{y} = (0.4, 0.6)^T$$이었다면 파라미터는 $$\hat{y}$$가 좀 더 $$y$$에 가까운 값을 갖을 수 있도록 조정되어야 할 것이다.
 
 
 
-여기서 *'가까운'*을 판단하는 척도는 무엇일까? 다르게 말하자면 $$y$$가 $$\hat{y}$$와 얼마나 다른지 판단하는 방법이 필요하게 된다.
+여기서 *'가까운'*을 판단하는 척도, 다르게 말하자면 $$y$$가 $$\hat{y}$$와 얼마나 다른지 판단하는 방법이 필요하게 된다.
 
 
 
@@ -45,7 +45,7 @@ Probabilistic classification 모델을 학습한다고 가정해보자. 이때 �
 
 #### Likelihood (function) for Bernoulli Distribution
 
-한국어로는 likelihood를 가능도(可能度) 또는 우도(尤度)라고 부른다. 확률함수가 어떤 분포에 대한 관측 데이터의 확률을 나타낸다면, 가능도 함수는 주어진 관측 데이터에 대해 확률 분포의 파라미터가 얼마나 일관되는지를 나타낸다. 참고로 가능도 함수는 확률 분포가 아니며, 합하여 1이 되지 않을 수도 있다 [6].
+한국어로는 likelihood를 가능도(可能度) 또는 우도(尤度)라고 부른다. 확률함수가 어떤 분포에 대한 관측 데이터의 확률을 나타낸다면, 가능도 함수는 주어진 관측 데이터에 대해 확률 분포의 파라미터가 얼마나 일관되는지를 나타낸다. 참고로 가능도 함수는 확률분포가 아니며, 합하여 1이 되지 않을 수도 있다 [6].
 
 ![]({{ site.url }}/images/loss-cross-entropy/probabilites_vs_likelihoods.png "fig1"){: .aligncenter}
 
@@ -172,7 +172,7 @@ $$
 
 
 
-즉, 정보량의 평균은 정보량에 대한 기댓값이며 동시에 사건을 표현하기 위해 요구되는 평균 자원이라고도 할 수 있다. (*참고원문:* The entropy provides an absolute limit on the shortest possible average length of a lossless compression encoding of the data produced by a source. [9])
+즉, 엔트로피는 정보량에 대한 기댓값이며 동시에 사건을 표현하기 위해 요구되는 평균 자원이라고도 할 수 있다. (*참고원문:* The entropy provides an absolute limit on the shortest possible average length of a lossless compression encoding of the data produced by a source. [9])
 
 **엔트로피:**
 
@@ -182,7 +182,7 @@ $$
 >     $$
 > </center>
 
-우리는 이를 엔트로피라고 부른다. 엔트로피는 불확실성(uncertainty)과도 같은 개념이다. 예측이 어려울수록 정보의 양은 더 많아지고 엔트로피는 더 커진다 [4].
+엔트로피는 불확실성(uncertainty)과도 같은 개념이다. 예측이 어려울수록 정보의 양은 더 많아지고 엔트로피는 더 커진다 [9].
 
 <br/>
 
@@ -198,9 +198,11 @@ Cross Entropy는 두 개의 확률분포 $$p$$와 $$q$$에 대해 하나의 사�
 >     $$
 > </center>
 
-Cross entropy는 기계학습과 최적화에서 손실함수(loss function)을 정의하는데 사용되곤 한다. 이때, $$p$$는 true probability로써 true label에 대한 분포를, $$q$$는 현재 예측모델의 추정값에 대한 분포를 나타낸다 [13].
+Cross entropy는 기계학습에서 손실함수(loss function)을 정의하는데 사용되곤 한다. 이때, $$p$$는 true probability로써 true label에 대한 분포를, $$q$$는 현재 예측모델의 추정값에 대한 분포를 나타낸다 [13].
 
 
+
+Binary cross entropy는 두 개의 class 중 하나를 예측하는 task에 대한 cross entropy의 special case이다.
 
 **Binary Classification Task에서의 Cross Entropy:**
 
@@ -247,16 +249,18 @@ KL Divergence는 정보량의 차이에 대한 기댓값이다. 만약 $$q$$가 
 </center>
 
 
-
-참고로 $$p$$와 $$q$$의 분포가 동일할 경우, 두 정보량의 차는 0이 되므로 이때 KL Divergence는 0을 반환한다.
-
-* **Note:** KL Divergence는 $$p$$와 $$q$$의 순서가 바뀌면 다른 값을 반환한다. 즉, symmetric하지 않다.
-
 ![]({{ site.url }}/images/loss-cross-entropy/KL-Gauss-Example.png "fig2"){: .aligncenter}
 
 <center>
 Fig 2. 두 정규분포간의 KL divergence [10]
 </center>
+
+<br/>
+
+
+참고로 $$p​$$와 $$q​$$의 분포가 동일할 경우, 두 정보량의 차는 0이 되므로 이때 KL Divergence는 0을 반환한다.
+
+* **Note:** KL Divergence는 $$p$$와 $$q$$의 순서가 바뀌면 다른 값을 반환한다. 즉, symmetric하지 않다.
 
 <br/>
 
