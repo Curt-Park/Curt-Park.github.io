@@ -110,8 +110,8 @@ Some suggestions for naming your feature branches:
 
 - `feat/feature-name`
 - `feat/feature-area/feature-name`
-- `user/username/description`
-- `user/username/workitem`
+- `usr/username/description`
+- `usr/username/workitem`
 - `bugfix/description`
 - `hotfix/description`
 
