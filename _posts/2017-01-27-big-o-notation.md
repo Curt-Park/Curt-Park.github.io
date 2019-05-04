@@ -3,7 +3,7 @@ layout: post
 title: "Big-O Notation"
 description: "Simple notation to estimate complexities of algorithms"
 date: 2017-01-27
-tags: [algorithm]
+tags: [algorithms]
 comments: true
 share: true
 use_math: true

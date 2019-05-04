@@ -1,9 +1,9 @@
 ---
 layout: post
-title: "[Algorithm] MaxSliceSum"
+title: "[Algorithms] MaxSliceSum"
 description: "Find a maximum sum of a compact subsequence of array elements."
 date: 2018-09-13
-tags: [algorithm]
+tags: [algorithms]
 comments: true
 share: true
 use_math: false
