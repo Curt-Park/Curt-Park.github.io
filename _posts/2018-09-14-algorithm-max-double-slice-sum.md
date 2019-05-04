@@ -1,9 +1,9 @@
 ---
 layout: post
-title: "[Algorithm] MaxDoubleSliceSum"
+title: "[Algorithms] MaxDoubleSliceSum"
 description: "Find the maximal sum of any double slice."
 date: 2018-09-14
-tags: [algorithm]
+tags: [algorithms]
 comments: true
 share: true
 use_math: false

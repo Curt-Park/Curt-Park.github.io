@@ -3,7 +3,7 @@ layout: post
 title: "[손실함수] Binary Cross Entropy"
 description: "확률, 정보이론 관점에서 살펴보는 Binary Cross Entropy 함수"
 date: 2018-09-19
-tags: [loss function]
+tags: [loss functions]
 comments: true
 share: true
 use_math: true
@@ -258,7 +258,7 @@ Fig 2. 두 정규분포간의 KL divergence [10]
 <br/>
 
 
-참고로 $$p​$$와 $$q​$$의 분포가 동일할 경우, 두 정보량의 차는 0이 되므로 이때 KL Divergence는 0을 반환한다.
+참고로 $$p$$와 $$q$$의 분포가 동일할 경우, 두 정보량의 차는 0이 되므로 이때 KL Divergence는 0을 반환한다.
 
 * **Note:** KL Divergence는 $$p$$와 $$q$$의 순서가 바뀌면 다른 값을 반환한다. 즉, symmetric하지 않다.
 

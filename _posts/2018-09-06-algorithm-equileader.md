@@ -1,9 +1,9 @@
 ---
 layout: post
-title: "[Algorithm] EquiLeader"
+title: "[Algorithms] EquiLeader"
 description: "Find the index S such that the leaders of the sequences A[0], A[1], ..., A[S] and A[S + 1], A[S + 2], ..., A[N - 1] are the same."
 date: 2018-09-06
-tags: [algorithm]
+tags: [algorithms]
 comments: true
 share: true
 use_math: false
