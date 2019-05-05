@@ -13,7 +13,7 @@ use_math: true
 
 [Paper](https://arxiv.org/pdf/1603.00448.pdf) / [Demo](https://youtu.be/hXxaepw0zAw)
 
-### 1. Introduction
+## 1. Introduction
 
 실전에서 잘 동작하는 cost function을 정의하는 것에는 항상 어려움이 따른다. 주로 다음과 같은 이유에서다.
   - 유용한 형태의 feature를 설계하는 것
@@ -25,7 +25,7 @@ use_math: true
 
 몇 가지 simulated benchmark tasks에서 guided cost learning은 이전 방식들과 비교에 훨씬 좋은 성능을 보여준다.
 
-### 2. Preliminaries and Overview
+## 2. Preliminaries and Overview
 
 The probabilistic maximum entropy inverse optimal control framework (Ziebart et al., 2008)의 아이디어를 기초로 한다. 여기서 expert는 다음의 분포에서 suboptimal trajectories $${\tau_i}$$를 추출(sample)하는 것으로 가정한다.
 $$p(\tau) = \frac{1}{Z} \exp(-c_\theta (\tau))$$
@@ -34,7 +34,7 @@ $$p(\tau) = \frac{1}{Z} \exp(-c_\theta (\tau))$$
 
 IOC / IRL 방법론에서는 보편적으로 cost function $$c_\theta (x_t, u_t)$$를 hand-crafted feature와 parameter 간의 linear combination으로 정의한다. 하지만 이러한 정의는 더욱 복잡한 도메인에서 적용하기에는 한계가 있으므로 $$c_\theta (x_t, u_t)$$를 raw sensory input에 대한 neural network로 정의한다.
 
-### 3. Guided Cost Learning 
+## 3. Guided Cost Learning 
 
 이 method의 중심에 있는 아이디어는 cost distribution $$p(\tau) = \frac{1}{Z} \exp(-c_\theta (\tau))$$의 maximum entropy에 맞추어가는 방향으로 sampling distribution을 조정해가는 것이다. Phicycal system에서 생성된 sample은 policy를 향상시키고 partition function을 좀 더 잘 추정하기 위해 사용한다.
 
@@ -60,7 +60,7 @@ $$
 
 ![title]({{ site.url }}/images/guided_cost_learning/cs294_lec16_is.png){: .aligncenter}
 
-### 4. Algorithms
+## 4. Algorithms
 
 ![title]({{ site.url }}/images/guided_cost_learning/gcl_algo1.png?){: .aligncenter}
 
@@ -74,7 +74,7 @@ $$\min_q E_q[c_\theta (\tau)] - \mathcal{H}(\tau)$$
 
 실제로 알고리즘을 시행하다보면 objective가 unbounded하는 이슈가 발생하곤 하는데, 알고리즘 line 4에서처럼 sampled demonstraion을 background sample에 추가하는 것으로 이를 완화시킬 수 있다.
 
-### 5. Regularization
+## 5. Regularization
 
 일반적으로 사용하는 $$\theta$$에 대한 $$l_1$$, $$l_2$$ penalty는 때때로 high-dimensional nonlinear const function에 대해 잘 동작하지 않는 경우가 발생한다. 각 entry는 parameter vector에 의해 각각 cost에 상당히 다른 영향을 미치기 때문이다. 이에 두 가지 새로운 regularizer를 소개한다.
 
@@ -94,7 +94,7 @@ Squared hinge loss에 의해 demo trajectory의 cost를 strictly monotonically �
 
 ![title]({{ site.url }}/images/guided_cost_learning/gcl_fig5.png){: .aligncenter}
 
-### 6. Experimental Results
+## 6. Experimental Results
 
 Mujoco simulator (2D navigation, 3-link arm reacher, 3D peg insertion)와 real-world tasks (dish placement, pouring)에 대해 실험한 결과다. 각각 20~32개, 25~30개의 human demonstration을 사용했다.
 

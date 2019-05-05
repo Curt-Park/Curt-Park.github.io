@@ -14,7 +14,7 @@ use_math: true
 
 [Paper](https://arxiv.org/pdf/1611.03852.pdf)
 
-### 1. Introduction
+## 1. Introduction
 
 본 논문에서는 서로 다른 세가지 도메인에서의 아이디어(MaxEnt IRL, GAN, EBM)가 다음 사실들을 통해 서로 깊은 연관성이 있음을 보일것이다.
 
@@ -22,7 +22,7 @@ use_math: true
   - IRL의 maximum entropy formulation이 energy-based model (EBM)의 특수한 형태 (special case)임
   - GAN의 특정 형태 (particular form)가 EBM을 학습 시키기 위해 사용될 수 있음
 
-### 2. Background
+## 2. Background
 
 GAN, EBM, IRL에 대해 간략히 설명한다.
 
@@ -86,7 +86,7 @@ L_{sampler} &= \mathbb{E}_{\tau \sim q}[log \frac{q(\tau)}{\frac{1}{Z}\exp(-c_\t
 $$
 
 
-### 3. GANs and IRL
+## 3. GANs and IRL
 
 Discriminator가 특정형태로 정의되어 있을때, GAN의 discriminator가 learned cost를 내포하며 또한 generator가 policy를 나타냄을 알아보겠다.
 
@@ -165,7 +165,7 @@ $$
 
 참고로 $$Z$$는 최적화 과정에서 항상 고정되어 있는 값이므로 무시해도 무방하다.
 
-### 4. GANs for training EBMs
+## 4. GANs for training EBMs
 
 EBM은 MaxEnt IRL에서 cost function이 energy value로 교체된 형태이므로 3과 동일한 과정으로 GAN과 EBM의 연관성을 유도해 볼 수 있다.
 
