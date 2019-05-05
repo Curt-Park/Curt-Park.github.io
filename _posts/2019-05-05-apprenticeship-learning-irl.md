@@ -26,7 +26,7 @@ E [ \sum_{t=0}^{\infty} \gamma^t R(s_t) | \pi_E ] - E [ \sum_{t=0}^{\infty} \gam
 $$
 
 
-논문에서 제시하는 apprenticeship learning algorithm은 다음의 절차를 통해 $\tilde{\pi}$를 찾는 것이다.
+논문에서 제시하는 apprenticeship learning algorithm은 다음의 절차를 통해 $$\tilde{\pi}$$를 찾는 것이다.
 
   - 임의의 initial policy $$\pi^{(0)}$$를 고르고, $$\mu^{(0)} = \mu(\pi^{(0)})$$를 계산한다.
   - $$t^{(i)} = \max_{w:\|w\|_2 \le 1} \min_{j \in \{0..(i-1)\}} w^T(\mu_E - \mu^{(j)})$$를 계산한다.

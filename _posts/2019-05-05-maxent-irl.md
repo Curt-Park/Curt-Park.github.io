@@ -52,7 +52,7 @@ $$P(\zeta | \theta, T) \approx \frac{e^{\theta^T f_{\zeta}}}{Z(\theta, T)} \prod
 
 $$\theta^* = argmax_{\theta} \sum_{examples} \log P(\tilde{\zeta} | \theta, T)$$
 
-위 문제의 목적함수는 concave이므로 gradient-based optimization을 통해 해결 가능하다. 즉, $$log P$$에 대해 전개한 식을 $\theta$에 대해 미분하고 이를 0으로 만드는 지점이 $$\sum_{examples} \log P(\tilde{\zeta} \mid \theta, T)$$가 최대화되는  위치인 것이다. 
+위 문제의 목적함수는 concave이므로 gradient-based optimization을 통해 해결 가능하다. 즉, $$log P$$에 대해 전개한 식을 $$\theta$$에 대해 미분하고 이를 0으로 만드는 지점이 $$\sum_{examples} \log P(\tilde{\zeta} \mid \theta, T)$$가 최대화되는  위치인 것이다. 
 
 $$\nabla L(\theta) = \tilde{f} - \sum_{\zeta} P(\zeta | \theta, T) f_{\zeta} = \tilde{f} - \sum_{s_i} D_{s_i} f_{s_i} = 0$$
 
